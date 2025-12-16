@@ -1,31 +1,27 @@
+from os import name
 import time
 import csv
 from timeit import main
 from kafka import KafkaProducer
 
-BROKER = 'localhost:9092'
-TOPIC_NAME = 'csv_topic'
-CSV_FILE_PATH = 'data/transactions.csv'
+class CSVProducer:
+    def __init__(self, csv_file_path='data/transactions.csv', broker='localhost:9092', topic_name='csv_topic', delay=1.0):
+        self.csv_file_path = csv_file_path
+        self.broker = broker
+        self.topic_name = topic_name
+        self.delay = delay
+        self.producer = KafkaProducer(
+            bootstrap_servers=self.broker,
+            value_serializer=lambda x: x.encode('utf-8')
+        )
 
-def produce_csv_data():
-    producer = KafkaProducer(bootstrap_servers=BROKER)
-
-    with open(CSV_FILE_PATH, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        
-        header = next(csvreader)  # Skip header row if present
-
-        for row in csvreader:
-            message = ','.join(row).encode('utf-8')
-            producer.send(TOPIC_NAME, message)
-            print(f'Sent: {message}')
-            time.sleep(0.5)  # Simulate delay between messages
-
-    print("📤 CSV Producer started...")
-    
-    producer.flush()
-    producer.close()
-    print("📤 CSV Producer finished sending messages.")
-
-    if main():
-        produce_csv_data()
+    def run(self):
+        print("📤 CSV Producer started...")
+        with open(self.csv_file_path, 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                message = ','.join(row)
+                self.producer.send(self.topic_name, value=message)
+                print(f'Sent: {message}')
+                time.sleep(self.delay)  # Simulate delay between messages
+        print("📤 CSV Producer finished sending messages.")

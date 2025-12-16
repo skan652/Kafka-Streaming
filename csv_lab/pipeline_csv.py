@@ -7,20 +7,17 @@ a real streaming pipeline.
 """
 
 import threading
-from queue import Queue
-from producer_csv import main as run_producer
-from consumer_csv import main as run_consumer
+from producer_csv import CSVProducer
+from consumer_csv import run_consume
 
 def main():
-    producer = threading.Thread(target=run_producer)
-    consumer = threading.Thread(target=run_consumer)
+    consumer_thread = threading.Thread(target=run_consume, daemon=True)
+    producer = threading.Thread(target=CSVProducer().run)
 
-    producer.start()
-    consumer.start()
+    consumer_thread.start()
+    producer.run()
 
-    producer.join()
-    consumer.join()
+    print("Pipeline finished. Press Ctrl+C to stop consumer if running...")
 
 if __name__ == "__main__":
-    print("Starting the Python Streaming Pipeline...")
     main()
