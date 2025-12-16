@@ -1,0 +1,14 @@
+Row 4 skipped (validation error): [3, 101, '', '2024-01-01 10:01:10'] | Error: could not convert string to float: ''
+Row 5 skipped (validation error): [4, 'abc', '89.9', '2024-01-01 10:02:00'] | Error: invalid literal for int() with base 10: 'abc'
+Row 7 skipped (validation error): [6, 102, 15.2, 'not-a-date'] | Error: time data 'not-a-date' does not match format '%Y-%m-%d %H:%M:%S'
+Row 10 skipped (validation error): [9, 106, 'seven', '2024-01-01 10:05:40'] | Error: could not convert string to float: 'seven'
+Row 13 skipped (validation error): [11, 107, 55.0, ''] | Error: time data '' does not match format '%Y-%m-%d %H:%M:%S'
+Row 14 skipped (validation error): [12, 108, 20.0, '2024/01/01 10:10:00'] | Error: time data '2024/01/01 10:10:00' does not match format '%Y-%m-%d %H:%M:%S'
+Row 15 skipped (wrong columns): ['13', '109']
+Row 4 skipped (validation error): [3, 101, '', '2024-01-01 10:01:10'] | Error: could not convert string to float: ''
+Row 5 skipped (validation error): [4, 'abc', '89.9', '2024-01-01 10:02:00'] | Error: invalid literal for int() with base 10: 'abc'
+Row 7 skipped (validation error): [6, 102, 15.2, 'not-a-date'] | Error: time data 'not-a-date' does not match format '%Y-%m-%d %H:%M:%S'
+Row 10 skipped (validation error): [9, 106, 'seven', '2024-01-01 10:05:40'] | Error: could not convert string to float: 'seven'
+Row 13 skipped (validation error): [11, 107, 55.0, ''] | Error: time data '' does not match format '%Y-%m-%d %H:%M:%S'
+Row 14 skipped (validation error): [12, 108, 20.0, '2024/01/01 10:10:00'] | Error: time data '2024/01/01 10:10:00' does not match format '%Y-%m-%d %H:%M:%S'
+Row 15 skipped (wrong columns): ['13', '109']
