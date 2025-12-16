@@ -12,11 +12,13 @@ from consumer_csv import run_consume
 
 def main():
     consumer_thread = threading.Thread(target=run_consume, daemon=True)
-    producer = threading.Thread(target=CSVProducer().run)
-
     consumer_thread.start()
-    producer.run()
 
+    producer_instance= CSVProducer("data/transactions_dirty.csv")
+    producer_thread = threading.Thread(target=producer_instance.run)
+    producer_thread.start()
+
+    producer_thread.join()
     print("Pipeline finished. Press Ctrl+C to stop consumer if running...")
 
 if __name__ == "__main__":

@@ -19,9 +19,15 @@ class CSVProducer:
         print("📤 CSV Producer started...")
         with open(self.csv_file_path, 'r') as file:
             reader = csv.reader(file)
-            for row in reader:
-                message = ','.join(row)
-                self.producer.send(self.topic_name, value=message)
-                print(f'Sent: {message}')
-                time.sleep(self.delay)  # Simulate delay between messages
-        print("📤 CSV Producer finished sending messages.")
+            header = next(reader)  # Skip header row
+            for i, row in enumerate(reader, start=2):
+                try:
+                    if len(row) != len(header):
+                        print(f"Warning: Row {i} has {len(row)} columns, expected {len(header)}. Skipping row.")
+                        continue
+                    message = ','.join(row)
+                    self.producer.send(self.topic_name, value=message)
+                    print(f'Sent: {message} (Row {i})')
+                    time.sleep(self.delay)  # Simulate delay between messages
+                except Exception as e:
+                    print(f"Error sending message: {e}")
