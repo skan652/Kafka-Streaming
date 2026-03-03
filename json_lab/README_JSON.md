@@ -26,9 +26,12 @@ By the end of this lab, you should be able to:
 
 ### Task 2 — JSON Producer (Python)
 - Implement a producer that:
+  - Reads from a JSON file (clean or dirty)
   - Sends JSON messages
-  - Ensures valid serialization
-  - Handles malformed records
+  - Ensures valid serialization and basic type casting
+  - Handles malformed records gracefully (skip and warn)
+
+> A helper `JSONProducer` class is provided in `producer_json.py`. You can run the module directly or invoke it from the pipeline.
 
 ---
 
@@ -36,6 +39,8 @@ By the end of this lab, you should be able to:
 - Parse JSON messages
 - Extract fields
 - Detect malformed events
+
+> Consumer logic lives in `consumer_json.py` as `run_consume()` which prints incoming events and logs parse errors.
 
 ---
 
